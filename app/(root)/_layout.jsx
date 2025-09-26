@@ -7,7 +7,7 @@ export default function Layout() {
 
   if (!isLoaded) return null; // this is for a better ux
 
-  if (!isSignedIn) return <Redirect href={"/sign-in"} />;
+  if (!isSignedIn) return <Redirect href={"/SignIn"} />;
 
   return <Stack screenOptions={{ headerShown: false }} />;
 }

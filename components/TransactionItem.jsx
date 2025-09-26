@@ -40,7 +40,7 @@ export const TransactionItem = ({ item, onDelete }) => {
               { color: isIncome ? COLORS.income : COLORS.expense },
             ]}
           >
-            {isIncome ? "+" : "-"}$
+            {isIncome ? "+" : "-"}KES
             {Math.abs(parseFloat(item.amount)).toFixed(2)}
           </Text>
           <Text style={styles.transactionDate}>

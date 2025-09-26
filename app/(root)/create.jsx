@@ -158,7 +158,7 @@ const CreateScreen = () => {
 
         {/* AMOUNT CONTAINER */}
         <View style={styles.amountContainer}>
-          <Text style={styles.currencySymbol}>$</Text>
+          <Text style={styles.currencySymbol}>KES </Text>
           <TextInput
             style={styles.amountInput}
             placeholder="0.00"
