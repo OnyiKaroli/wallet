@@ -1,13 +1,65 @@
 import { useUser } from "@clerk/clerk-expo";
-import { Redirect } from "expo-router";
-import { Stack } from "expo-router/stack";
+import { Redirect, Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { COLORS } from "../../constants/colors";
+import { Image } from "react-native";
+import { styles } from "../../assets/styles/home.styles";
 
 export default function Layout() {
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn, isLoaded, user } = useUser();
 
   if (!isLoaded) return null; // this is for a better ux
 
   if (!isSignedIn) return <Redirect href={"/SignIn"} />;
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarBackgroundColor: COLORS.background,
+        tabBarStyle: { borderTopColor: COLORS.border, borderTopWidth: 1 },
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={COLORS.primary} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="create"
+        options={{
+          title: "Add",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="add-circle-outline"
+              size={size}
+              color={COLORS.primary}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color, size }) => (
+            <Image
+              source={
+                user?.imageUrl
+                  ? { uri: user.imageUrl }
+                  : require("../../assets/images/profile.png")
+              }
+              style={styles.profileIcon}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+    </Tabs>
+  );
 }

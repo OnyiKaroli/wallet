@@ -69,7 +69,12 @@ export default function Page() {
             <View style={styles.welcomeContainer}>
               <Text style={styles.welcomeText}>Welcome,</Text>
               <Text style={styles.usernameText}>
-                {user?.emailAddresses[0]?.emailAddress.split("@")[0]}
+                {user?.firstName && user?.lastName
+                  ? `${user.firstName} ${user.lastName}`
+                  : user?.emailAddresses?.[0]?.emailAddress.split("@")[0]}
+              </Text>
+              <Text style={styles.emailText}>
+                {user?.emailAddresses?.[0]?.emailAddress}
               </Text>
             </View>
           </View>

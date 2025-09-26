@@ -25,8 +25,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerLogo: {
-    width: 75,
-    height: 75,
+    marginRight: 10,
+    width: 60,
+    height: 60,
+    borderRadius: 9999, // large number forces full circle
+    overflow: "hidden", // makes sure corners are clipped
+  },
+  profileIcon: {
+    width: 35,
+    height: 35,
+    borderRadius: 9999, // large number forces full circle
+    overflow: "hidden", // makes sure corners are clipped
   },
   welcomeContainer: {
     flex: 1,

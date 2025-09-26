@@ -22,6 +22,13 @@ const CATEGORIES = [
   { id: "entertainment", name: "Entertainment", icon: "film" },
   { id: "bills", name: "Bills", icon: "receipt" },
   { id: "income", name: "Income", icon: "cash" },
+  { id: "health", name: "Health", icon: "heart" },
+  { id: "travel", name: "Travel", icon: "airplane" },
+  { id: "education", name: "Education", icon: "school" },
+  { id: "gift", name: "Gift", icon: "gift" },
+  { id: "personal", name: "Personal Care", icon: "person" },
+  { id: "pets", name: "Pets", icon: "paw" },
+  { id: "home", name: "Home", icon: "home" },
   { id: "other", name: "Other", icon: "ellipsis-horizontal" },
 ];
 
