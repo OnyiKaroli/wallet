@@ -65,30 +65,30 @@ const safaricomTheme = {
 };
 
 const airtelTheme = {
-  primary: "#E60000",   // Airtel red
+  primary: "#E60000", // Airtel red
   background: "#FFF5F5", // very light red-tint background
-  text: "#212121",       // dark neutral text
-  border: "#F5C2C0",     // light red border
+  text: "#212121", // dark neutral text
+  border: "#F5C2C0", // light red border
   white: "#FFFFFF",
-  textLight: "#FF6B6B",  // softer red for secondary text
-  expense: "#C62828",    // darker red for expenses
-  income: "#2E7D32",     // green for income (contrast)
+  textLight: "#FF6B6B", // softer red for secondary text
+  expense: "#C62828", // darker red for expenses
+  income: "#2E7D32", // green for income (contrast)
   card: "#FFFFFF",
   shadow: "#000000",
 };
 
 const mashupTheme = {
-  primary: "#1BAA5A",   // Safaricom green (main brand color)
+  primary: "#1BAA5A", // Safaricom green (main brand color)
   background: "#FFF9F9", // very light warm background (leans toward Airtel’s softness)
-  text: "#212121",       // dark neutral text for balance
-  border: "#E5E5E5",     // neutral border
+  text: "#212121", // dark neutral text for balance
+  border: "#E5E5E5", // neutral border
   white: "#FFFFFF",
-  textLight: "#66BB6A",  // softer green for secondary text
-  expense: "#E60000",    // Airtel red for negative values
-  income: "#2ECC71",     // bright green for positive values
+  textLight: "#66BB6A", // softer green for secondary text
+  expense: "#E60000", // Airtel red for negative values
+  income: "#2ECC71", // bright green for positive values
   card: "#FFFFFF",
   shadow: "#000000",
-  accent: "#FF3B3B",     // Airtel bold red accent (buttons, highlights)
+  accent: "#FF3B3B", // Airtel bold red accent (buttons, highlights)
 };
 
 export const THEMES = {
@@ -102,4 +102,4 @@ export const THEMES = {
 };
 
 // 👇 change this to switch theme
-export const COLORS = THEMES.mashup;
+export const COLORS = THEMES.airtel;

@@ -12,28 +12,35 @@ export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
 
-  // Handle submission of sign-up form
+  // Handle sign-up form submission
   const onSignUpPress = async () => {
     if (!isLoaded) return;
 
-    // Start sign-up process using email and password provided
+    // Basic validation
+    if (!firstName || !lastName || !emailAddress || !password) {
+      setError("All fields are required.");
+      return;
+    }
+
     try {
       await signUp.create({
+        firstName,
+        lastName,
         emailAddress,
         password,
       });
 
-      // Send user an email with verification code
+      // Send user a verification email
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
 
-      // Set 'pendingVerification' to true to display second form
-      // and capture OTP code
       setPendingVerification(true);
     } catch (err) {
       if (err.errors?.[0]?.code === "form_identifier_exists") {
@@ -44,54 +51,48 @@ export default function SignUpScreen() {
     }
   };
 
-  // Handle submission of verification form
+  // Handle verification form submission
   const onVerifyPress = async () => {
     if (!isLoaded) return;
 
     try {
-      // Use the code the user provided to attempt verification
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code,
       });
 
-      // If verification was completed, set the session to active
-      // and redirect the user
       if (signUpAttempt.status === "complete") {
         await setActive({ session: signUpAttempt.createdSessionId });
         router.replace("/");
       } else {
-        // If the status is not complete, check why. User may need to
-        // complete further steps.
-        console.error(JSON.stringify(signUpAttempt, null, 2));
+        console.error("Verification incomplete:", signUpAttempt);
       }
     } catch (err) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
-      console.error(JSON.stringify(err, null, 2));
+      setError("Invalid or expired verification code.");
     }
   };
 
+  // --- VERIFICATION SCREEN ---
   if (pendingVerification) {
     return (
       <View style={styles.verificationContainer}>
         <Text style={styles.verificationTitle}>Verify your email</Text>
 
         {error ? (
-          <Text style={styles.errorBox}>
+          <View style={styles.errorBox}>
             <Ionicons name="alert-circle" size={20} color={COLORS.expense} />
-            <Text style={styles.errorText}>{"error"}</Text>
+            <Text style={styles.errorText}>{error}</Text>
             <TouchableOpacity onPress={() => setError("")}>
               <Ionicons name="close" size={20} color={COLORS.textLight} />
             </TouchableOpacity>
-          </Text>
+          </View>
         ) : null}
 
         <TextInput
           style={[styles.verificationInput, error && styles.inputError]}
           value={code}
           placeholderTextColor={COLORS.textLight}
-          placeholder="Enter your verification code"
-          onChangeText={(code) => setCode(code)}
+          placeholder="Enter verification code"
+          onChangeText={setCode}
         />
         <TouchableOpacity onPress={onVerifyPress} style={styles.button}>
           <Text style={styles.buttonText}>Verify</Text>
@@ -100,13 +101,14 @@ export default function SignUpScreen() {
     );
   }
 
+  // --- SIGN-UP FORM SCREEN ---
   return (
     <KeyboardAwareScrollView
-      animated={true}
+      animated
       style={{ flex: 1 }}
       contentContainerStyle={{ flexGrow: 1 }}
-      enableOnAndroid={true}
-      enableAutomaticScroll={true}
+      enableOnAndroid
+      enableAutomaticScroll
     >
       <View style={styles.container}>
         <Image
@@ -116,34 +118,64 @@ export default function SignUpScreen() {
         <Text style={styles.title}>Create Account</Text>
 
         {error ? (
-          <Text style={styles.errorBox}>
+          <View style={styles.errorBox}>
             <Ionicons name="alert-circle" size={20} color={COLORS.expense} />
-            <Text style={styles.errorText}>{"error"}</Text>
+            <Text style={styles.errorText}>{error}</Text>
             <TouchableOpacity onPress={() => setError("")}>
               <Ionicons name="close" size={20} color={COLORS.textLight} />
             </TouchableOpacity>
-          </Text>
+          </View>
         ) : null}
+        <View style={styles.inputRow}>
+          {/* First name */}
+          <TextInput
+            style={[styles.input, error && styles.inputError]}
+            autoCapitalize="words"
+            width="48%"
+            value={firstName}
+            placeholder="First name"
+            placeholderTextColor={COLORS.textLight}
+            onChangeText={setFirstName}
+          />
 
+          {/* Last name */}
+          <TextInput
+            style={[styles.input, error && styles.inputError]}
+            autoCapitalize="words"
+            width="48%"
+            value={lastName}
+            placeholder="Last name"
+            placeholderTextColor={COLORS.textLight}
+            onChangeText={setLastName}
+          />
+        </View>
+
+        {/* Email */}
         <TextInput
           style={[styles.input, error && styles.inputError]}
           autoCapitalize="none"
           value={emailAddress}
-          placeholderTextColor={COLORS.textLight}
           placeholder="Enter email"
-          onChangeText={(email) => setEmailAddress(email)}
+          placeholderTextColor={COLORS.textLight}
+          onChangeText={setEmailAddress}
         />
+
+        {/* Password */}
         <TextInput
           style={[styles.input, error && styles.inputError]}
           value={password}
-          placeholderTextColor={COLORS.textLight}
           placeholder="Enter password"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          placeholderTextColor={COLORS.textLight}
+          secureTextEntry
+          onChangeText={setPassword}
         />
+
+        {/* Submit */}
         <TouchableOpacity style={styles.button} onPress={onSignUpPress}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
+
+        {/* Footer */}
         <View style={styles.footerContainer}>
           <Text style={styles.footerText}>Already have an account?</Text>
           <Link href="/SignIn">

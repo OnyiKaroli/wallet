@@ -32,8 +32,8 @@ export const styles = StyleSheet.create({
     overflow: "hidden", // makes sure corners are clipped
   },
   profileIcon: {
-    width: 35,
-    height: 35,
+    width: 25,
+    height: 25,
     borderRadius: 9999, // large number forces full circle
     overflow: "hidden", // makes sure corners are clipped
   },

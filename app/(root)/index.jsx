@@ -80,13 +80,6 @@ export default function Page() {
           </View>
           {/* RIGHT */}
           <View style={styles.headerRight}>
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => router.push("/create")}
-            >
-              <Ionicons name="add" size={20} color="#FFF" />
-              <Text style={styles.addButtonText}>Add</Text>
-            </TouchableOpacity>
             <SignOutButton />
           </View>
         </View>

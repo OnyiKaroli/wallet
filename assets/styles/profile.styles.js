@@ -329,4 +329,17 @@ export const styles = StyleSheet.create({
   transactionsListContent: {
     paddingBottom: 20,
   },
+  imageWrapper: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  editIcon: {
+    position: "absolute",
+    bottom: 5,
+    right: 100, // tweak based on your profile image size
+    backgroundColor: COLORS.primary,
+    borderRadius: 20,
+    padding: 6,
+  },
 });

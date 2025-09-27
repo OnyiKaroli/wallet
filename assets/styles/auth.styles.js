@@ -31,6 +31,11 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.text,
   },
+  inputRow:{
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   errorInput: {
     borderColor: COLORS.expense,
   },

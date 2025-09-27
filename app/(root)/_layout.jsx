@@ -53,15 +53,22 @@ export default function Layout() {
           name="profile"
           options={{
             title: "Profile",
-            tabBarIcon: () => (
+            tabBarIcon: ({ size }) => (
               <Image
                 source={
-                  user?.imageUrl
-                    ? { uri: user.imageUrl }
-                    : require("../../assets/images/profile.png")
+                  user?.imageUrl ? (
+                    { uri: user.imageUrl }
+                  ) : (
+                    <Ionicons
+                      name="person-circle-outline"
+                      size={size}
+                      color={COLORS.primary}
+                      style={styles.profileIcon}
+                    />
+                  )
                 }
                 style={styles.profileIcon}
-                resizeMode="contain"
+                resizeMode="cover"
               />
             ),
           }}
